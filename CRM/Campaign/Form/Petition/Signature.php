@@ -646,7 +646,8 @@ class CRM_Campaign_Form_Petition_Signature extends CRM_Core_Form {
         case 2:
           //status is completed
           $this->bao->sendEmail($params, 1);
-          CRM_Utils_System::redirect(CRM_Utils_System::url('civicrm/petition/thankyou', 'pid=' . $this->_surveyId . '&id=5&reset=1'));
+          $postURL = CRM_Core_DAO::singleValueQuery("SELECT post_URL FROM civicrm_uf_group WHERE id = " . $this->_contactProfileId) ?: CRM_Utils_System::url('civicrm/petition/thankyou', 'pid=' . $this->_surveyId . '&id=5&reset=1');
+          CRM_Utils_System::redirect($postURL);
           break;
       }
     }
