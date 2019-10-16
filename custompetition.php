@@ -115,8 +115,13 @@ function custompetition_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
  * @param CRM_Core_Form $form
  */
 function custompetition_civicrm_postProcess($formName, &$form) {
-  if ($formName == "CRM_Campaign_Form_Petition_Signature" && $form->_surveyId == PETITION_ID) {
-    $url = "https://www.environmentalhealth.org/index.php/en/thank-you-for-taking-action-on-ab-423";
+  if ($formName == "CRM_Campaign_Form_Petition_Signature") {
+    if ($form->_surveyId == PETITION_ID) {
+      $url = "https://www.environmentalhealth.org/index.php/en/thank-you-for-taking-action-on-ab-423";
+    }
+    else {
+      $url = CRM_Core_DAO::singleValueQuery("SELECT post_URL FROM civicrm_uf_group WHERE id = " . $form->getVar('_contactProfileId') ?: CRM_Utils_System::url('civicrm/petition/thankyou', 'pid=' . $form->_surveyId . '&id=5&reset=1');
+    }
     CRM_Utils_System::redirect($url);
   }
 }
