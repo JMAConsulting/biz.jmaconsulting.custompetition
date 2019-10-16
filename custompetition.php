@@ -120,7 +120,7 @@ function custompetition_civicrm_postProcess($formName, &$form) {
       $url = "https://www.environmentalhealth.org/index.php/en/thank-you-for-taking-action-on-ab-423";
     }
     else {
-      $url = CRM_Core_DAO::singleValueQuery("SELECT post_URL FROM civicrm_uf_group WHERE id = " . $form->getVar('_contactProfileId') ?: CRM_Utils_System::url('civicrm/petition/thankyou', 'pid=' . $form->_surveyId . '&id=5&reset=1');
+      $url = CRM_Core_DAO::singleValueQuery("SELECT post_URL FROM civicrm_uf_group WHERE id = " . $form->getVar('_contactProfileId')) ?: CRM_Utils_System::url('civicrm/petition/thankyou', 'pid=' . $form->_surveyId . '&id=5&reset=1');
     }
     CRM_Utils_System::redirect($url);
   }
